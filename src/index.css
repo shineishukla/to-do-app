@@ -1,0 +1,65 @@
+.App {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Todo {
+  background-color: rgb(184, 179, 245);
+  text-align: center;
+  width: 50%;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: auto;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+}
+
+button {
+  width: 50px;
+  height: 35px;
+  background-color: rgb(232, 96, 244);
+  border: none;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+button:hover {
+  background-color: rgb(96, 244, 103);
+  cursor: pointer;
+}
+
+.input {
+  border: none;
+  width: 340px;
+  height: 35px;
+  border-radius: 9px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.Top {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
+li:before {
+  content: "*";
+  margin-right: 5px;
+}
