@@ -3,22 +3,23 @@ import React, { useState } from 'react';
 const TodoList = () => {
     const [inputTask, setInputTask] = useState('');
     const [list, setList] = useState([]);
-    const [isEmpty, setIsEmpty] = useState(false); // New state for input validation
+    const [inputError, setInputError] = useState(false);
 
     const handleAddTodo = () => {
         if (inputTask.trim() === '') {
-            setIsEmpty(true); // Set isEmpty state to true if input is empty
-            return; // Don't add an empty task
+            setInputError(true);
+            return;
         }
 
         const newTask = {
             id: Math.random(),
-            todo: inputTask
+            todo: inputTask,
+            completed: false, // Initialize as not completed
         };
 
         setList([...list, newTask]);
         setInputTask('');
-        setIsEmpty(false); // Reset isEmpty state after adding a task
+        setInputError(false); // Reset the input error state
     };
 
     const handleDeleteTodo = (id) => {
@@ -26,9 +27,22 @@ const TodoList = () => {
         setList(newList);
     };
 
+    const handleCompleteTodo = (id) => {
+        const updatedList = list.map((todo) => {
+            if (todo.id === id) {
+                return {
+                    ...todo,
+                    completed: !todo.completed, // Toggle the completed status
+                };
+            }
+            return todo;
+        });
+        setList(updatedList);
+    };
+
     const handleInputChange = (event) => {
         setInputTask(event.target.value);
-        setIsEmpty(false); // Reset isEmpty state when input changes
+        setInputError(false); // Reset the input error state when typing
     };
 
     return (
@@ -37,22 +51,25 @@ const TodoList = () => {
 
             <div className="Top">
                 <input
-                    className={`input ${isEmpty ? 'empty' : ''}`} // Apply 'empty' class if isEmpty is true
+                    className={`input ${inputError ? 'error' : ''}`}
                     type="text"
                     value={inputTask}
                     onChange={handleInputChange}
                     placeholder="Enter a task"
                 />
 
-                <button className="btn" onClick={handleAddTodo}>➕</button>
+                <button className="btn" onClick={handleAddTodo}>Add</button>
             </div>
+
+            {inputError && <p className="error-text">Please enter a task.</p>}
 
             <ul>
                 {list.map((todo) => (
-                    <li className="task" key={todo.id}>
+                    <li className={`task ${todo.completed ? 'completed' : ''}`} key={todo.id}>
                         {todo.todo}
-                        <button onClick={() => handleDeleteTodo(todo.id)}>
-                            ✖
+                        <button onClick={() => handleDeleteTodo(todo.id)}>Remove</button>
+                        <button onClick={() => handleCompleteTodo(todo.id)}>
+                            {todo.completed ? 'Undo' : 'Done'}
                         </button>
                     </li>
                 ))}
